@@ -4,13 +4,12 @@ from __future__ import print_function
 import sys
 
 # The current version of the system.  Format is #.#.#[-DEV].
-version = '1.2.7-DEV'
+version = '1.3.0-DEV'
 
-# Require Python 2.6 or higher or Python 3.1 or higher
-if (sys.version_info[:2] < (2, 6)) or ((sys.version_info[0] == 3) and sys.version_info[:2] < (3, 1)):
+# Require Python 3.10 or higher
+if (sys.version_info[:2] <= (3, 10)):
     raise ValueError('''PyXB requires:
-  Python2 version 2.6 or later; or
-  Python3 version 3.1 or later
+  Python3 version 3.10 or later
 (You have %s.)''' % (sys.version,))
 
 import os
@@ -217,9 +216,9 @@ for possible_bundle in possible_bundles:
 
 setup(name='PyXB',
       description = 'PyXB ("pixbee") is a pure Python package that generates Python source code for classes that correspond to data structures defined by XMLSchema.',
-      author='Peter A. Bigot',
-      author_email='pabigot@users.sourceforge.net',
-      url='http://pyxb.sourceforge.net',
+      author='Peter A. Bigot forked by Al Niessner',
+      author_email='via github repository',
+      url='https://github.com/al-niessner/pyxb',
       # Also change in README.TXT, pyxb/__init__.py, and doc/conf.py
       version=version,
       license='Apache License 2.0',
@@ -266,13 +265,5 @@ The major goals of PyXB are:
                       , 'License :: OSI Approved :: Apache Software License'
                       , 'Topic :: Software Development :: Code Generators'
                       , 'Topic :: Text Processing :: Markup :: XML'
-                      , 'Programming Language :: Python :: 2'
-                      , 'Programming Language :: Python :: 2.6'
-                      , 'Programming Language :: Python :: 2.7'
-                      , 'Programming Language :: Python :: 3'
-                      # Skip 3.0 because it doesn't know how to be built with hashlib support
-                      , 'Programming Language :: Python :: 3.1'
-                      , 'Programming Language :: Python :: 3.2'
-                      , 'Programming Language :: Python :: 3.3'
-                      , 'Programming Language :: Python :: 3.4'
+                      , 'Programming Language :: Python :: 3.10 or later'
                       ] )
