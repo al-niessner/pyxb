@@ -4,13 +4,12 @@ from __future__ import print_function
 import sys
 
 # The current version of the system.  Format is #.#.#[-DEV].
-version = '1.2.7-DEV'
+version = '1.3.0'
 
-# Require Python 2.6 or higher or Python 3.1 or higher
-if (sys.version_info[:2] < (2, 6)) or ((sys.version_info[0] == 3) and sys.version_info[:2] < (3, 1)):
+# Require Python 3.10 or higher
+if (sys.version_info[:2] < (3, 10)):
     raise ValueError('''PyXB requires:
-  Python2 version 2.6 or later; or
-  Python3 version 3.1 or later
+  Python3 version 3.10 or later
 (You have %s.)''' % (sys.version,))
 
 import os
@@ -19,7 +18,7 @@ import re
 import datetime
 import logging
 
-from distutils.core import setup, Command
+from setuptools import setup, Command
 
 # Stupid little command to automatically update the version number
 # where it needs to be updated.
@@ -167,112 +166,105 @@ class test (Command):
         runner = unittest.TextTestRunner(verbosity=verbosity)
         runner.run(suite)
 
-import glob
-import sys
-import pyxb.utils.utility
+if __name__ == '__main__':
+    import glob
+    import sys
+    import pyxb.utils.utility
 
-packages = [
-        'pyxb', 'pyxb.namespace', 'pyxb.binding', 'pyxb.utils', 'pyxb.xmlschema',
-        "pyxb.bundles"
-        ]
-package_data = {}
+    packages = [
+            'pyxb', 'pyxb.namespace', 'pyxb.binding', 'pyxb.utils', 'pyxb.xmlschema',
+            "pyxb.bundles"
+            ]
+    package_data = {}
 
-init_re = re.compile('^__init__\.py$')
-wxs_re = re.compile('^.*\.wxs$')
+    init_re = re.compile('^__init__\.py$')
+    wxs_re = re.compile('^.*\.wxs$')
 
-setup_path = os.path.dirname(__file__)
-bundle_base = os.path.join(setup_path, 'pyxb', 'bundles')
-possible_bundles = []
-try:
-    possible_bundles.extend(os.listdir(bundle_base))
-except OSError as e:
-    print("Directory %s bundle search failed: %s" % (bundle_base, e))
-for possible_bundle in possible_bundles:
-    bundle_root = os.path.join(bundle_base, possible_bundle)
-    if not os.path.isdir(bundle_root):
-        continue
-    b_packages = []
-    b_data = { }
-    for fp in pyxb.utils.utility.GetMatchingFiles('%s//' % (bundle_root,), init_re):
-        bundle_path = os.path.dirname(os.path.normpath(fp))
-        try:
-            package_relpath = os.path.relpath(bundle_path, setup_path)
-        except AttributeError as e:
-            package_relpath = bundle_path
-            if setup_path and '.' != setup_path:
-                prefix_path = setup_path + os.path.sep
-                if not package_relpath.startswith(prefix_path):
-                    print("Unable to determine relative path from %s to %s installation" % (setup_path, bundle_path))
-                    sys.exit(1)
-                package_relpath = package_relpath[len(prefix_path):]
-        package = package_relpath.replace(os.path.sep, '.')
-        b_packages.append(package)
-        wxs_files = [os.path.basename(_f) for _f in pyxb.utils.utility.GetMatchingFiles(bundle_path, wxs_re) ]
-        if wxs_files:
-            b_data[package] = wxs_files
-    if 0 < len(b_data):
-        print('Found bundle in %s' % (bundle_root,))
-        packages.extend(b_packages)
-        package_data.update(b_data)
+    setup_path = os.path.dirname(__file__)
+    bundle_base = os.path.join(setup_path, 'pyxb', 'bundles')
+    possible_bundles = []
+    try:
+        possible_bundles.extend(os.listdir(bundle_base))
+    except OSError as e:
+        print("Directory %s bundle search failed: %s" % (bundle_base, e))
+    for possible_bundle in possible_bundles:
+        bundle_root = os.path.join(bundle_base, possible_bundle)
+        if not os.path.isdir(bundle_root):
+            continue
+        b_packages = []
+        b_data = { }
+        for fp in pyxb.utils.utility.GetMatchingFiles('%s//' % (bundle_root,), init_re):
+            bundle_path = os.path.dirname(os.path.normpath(fp))
+            try:
+                package_relpath = os.path.relpath(bundle_path, setup_path)
+            except AttributeError as e:
+                package_relpath = bundle_path
+                if setup_path and '.' != setup_path:
+                    prefix_path = setup_path + os.path.sep
+                    if not package_relpath.startswith(prefix_path):
+                        print("Unable to determine relative path from %s to %s installation" % (setup_path, bundle_path))
+                        sys.exit(1)
+                    package_relpath = package_relpath[len(prefix_path):]
+            package = package_relpath.replace(os.path.sep, '.')
+            b_packages.append(package)
+            wxs_files = [os.path.basename(_f) for _f in pyxb.utils.utility.GetMatchingFiles(bundle_path, wxs_re) ]
+            if wxs_files:
+                b_data[package] = wxs_files
+        if 0 < len(b_data):
+            print('Found bundle in %s' % (bundle_root,))
+            packages.extend(b_packages)
+            package_data.update(b_data)
 
-setup(name='PyXB',
-      description = 'PyXB ("pixbee") is a pure Python package that generates Python source code for classes that correspond to data structures defined by XMLSchema.',
-      author='Peter A. Bigot',
-      author_email='pabigot@users.sourceforge.net',
-      url='http://pyxb.sourceforge.net',
-      # Also change in README.TXT, pyxb/__init__.py, and doc/conf.py
-      version=version,
-      license='Apache License 2.0',
-      long_description='''PyXB is a pure `Python <http://www.python.org>`_ package that generates
-Python code for classes that correspond to data structures defined by
-`XMLSchema <http://www.w3.org/XML/Schema>`_.  In concept it is similar to
-`JAXB <http://en.wikipedia.org/wiki/JAXB>`_ for Java and `CodeSynthesis XSD
-<http://www.codesynthesis.com/products/xsd/>`_ for C++.
+    setup(name='PyXB-CTC',
+          description = 'PyXB ("pixbee") is a pure Python package that generates Python source code for classes that correspond to data structures defined by XMLSchema.',
+          author='Peter A. Bigot forked by Al Niessner',
+          author_email='Via.Repo@github.com',
+          url='https://github.com/al-niessner/pyxb',
+          # Also change in README.TXT, pyxb/__init__.py, and doc/conf.py
+          version=version,
+          license='Apache License 2.0',
+          long_description='''PyXB is a pure `Python <http://www.python.org>`_ package that generates
+    Python code for classes that correspond to data structures defined by
+    `XMLSchema <http://www.w3.org/XML/Schema>`_.  In concept it is similar to
+    `JAXB <http://en.wikipedia.org/wiki/JAXB>`_ for Java and `CodeSynthesis XSD
+    <http://www.codesynthesis.com/products/xsd/>`_ for C++.
 
-The major goals of PyXB are:
+    The major goals of PyXB are:
 
-* Provide a generated Python interface that is "Pythonic", meaning similar
-  to one that would have been hand-written:
+    * Provide a generated Python interface that is "Pythonic", meaning similar
+      to one that would have been hand-written:
 
-  + Attributes and elements are Python properties, with name conflicts
-    resolved in favor of elements
-  + Elements with maxOccurs larger than 1 are stored as Python lists
-  + Bindings for type extensions inherit from the binding for the base type
-  + Enumeration constraints are exposed as class (constant) variables
+      + Attributes and elements are Python properties, with name conflicts
+        resolved in favor of elements
+      + Elements with maxOccurs larger than 1 are stored as Python lists
+      + Bindings for type extensions inherit from the binding for the base type
+      + Enumeration constraints are exposed as class (constant) variables
 
-* Support bi-directional conversion (document to Python and back)
+    * Support bi-directional conversion (document to Python and back)
 
-* Allow easy customization of the generated bindings to provide
-  functionality along with content
+    * Allow easy customization of the generated bindings to provide
+      functionality along with content
 
-* Support all XMLSchema features that are in common use, including:
+    * Support all XMLSchema features that are in common use, including:
 
-  + complex content models (nested all/choice/sequence)
-  + cross-namespace dependencies
-  + include and import directives
-  + constraints on simple types
-''',
-      provides=[ 'PyXB' ],
-      packages=packages,
-      package_data=package_data,
-      # I normally keep these in $purelib, but distutils won't tell me where that is.
-      # We don't need them in the installation anyway.
-      #data_files= [ ('pyxb/standard/schemas', glob.glob(os.path.join(*'pyxb/standard/schemas/*.xsd'.split('/'))) ) ],
-      scripts=[ 'scripts/pyxbgen', 'scripts/pyxbwsdl', 'scripts/pyxbdump' ],
-      cmdclass = { 'test' : test,
-                   'update_version' : update_version },
-      classifiers = [ 'Development Status :: 5 - Production/Stable'
-                      , 'Intended Audience :: Developers'
-                      , 'License :: OSI Approved :: Apache Software License'
-                      , 'Topic :: Software Development :: Code Generators'
-                      , 'Topic :: Text Processing :: Markup :: XML'
-                      , 'Programming Language :: Python :: 2'
-                      , 'Programming Language :: Python :: 2.6'
-                      , 'Programming Language :: Python :: 2.7'
-                      , 'Programming Language :: Python :: 3'
-                      # Skip 3.0 because it doesn't know how to be built with hashlib support
-                      , 'Programming Language :: Python :: 3.1'
-                      , 'Programming Language :: Python :: 3.2'
-                      , 'Programming Language :: Python :: 3.3'
-                      , 'Programming Language :: Python :: 3.4'
-                      ] )
+      + complex content models (nested all/choice/sequence)
+      + cross-namespace dependencies
+      + include and import directives
+      + constraints on simple types
+    ''',
+          provides=[ 'PyXB' ],
+          packages=packages,
+          package_data=package_data,
+          # I normally keep these in $purelib, but distutils won't tell me where that is.
+          # We don't need them in the installation anyway.
+          #data_files= [ ('pyxb/standard/schemas', glob.glob(os.path.join(*'pyxb/standard/schemas/*.xsd'.split('/'))) ) ],
+          scripts=[ 'scripts/pyxbgen', 'scripts/pyxbwsdl', 'scripts/pyxbdump' ],
+          cmdclass = { 'test' : test,
+                       'update_version' : update_version },
+          classifiers = [ 'Development Status :: 5 - Production/Stable'
+                          , 'Intended Audience :: Developers'
+                          , 'License :: OSI Approved :: Apache Software License'
+                          , 'Topic :: Software Development :: Code Generators'
+                          , 'Topic :: Text Processing :: Markup :: XML'
+                          , 'Programming Language :: Python :: 3.10'
+                          ] )
