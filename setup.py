@@ -7,7 +7,7 @@ import sys
 version = '1.3.0-DEV'
 
 # Require Python 3.10 or higher
-if (sys.version_info[:2] <= (3, 10)):
+if (sys.version_info[:2] < (3, 10)):
     raise ValueError('''PyXB requires:
   Python3 version 3.10 or later
 (You have %s.)''' % (sys.version,))
