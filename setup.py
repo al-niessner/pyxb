@@ -214,7 +214,7 @@ for possible_bundle in possible_bundles:
         packages.extend(b_packages)
         package_data.update(b_data)
 
-setup(name='PyXB',
+setup(name='PyXB-CTC',
       description = 'PyXB ("pixbee") is a pure Python package that generates Python source code for classes that correspond to data structures defined by XMLSchema.',
       author='Peter A. Bigot forked by Al Niessner',
       author_email='via github repository',
