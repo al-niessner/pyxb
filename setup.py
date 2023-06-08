@@ -265,5 +265,5 @@ The major goals of PyXB are:
                       , 'License :: OSI Approved :: Apache Software License'
                       , 'Topic :: Software Development :: Code Generators'
                       , 'Topic :: Text Processing :: Markup :: XML'
-                      , 'Programming Language :: Python :: 3.10 or later'
+                      , 'Programming Language :: Python :: 3.10'
                       ] )
