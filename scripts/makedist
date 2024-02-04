@@ -1,9 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Make distribution for branch $1 or `next` and store it in RELEASES
 
 # Assumption is that the development git repository is in PYXB_ROOT or ".",
 # and that there is a RELEASES subdirectory of this holding the
 # releases.
+
+if [ -z "$PYXB_REDIRECT_" ] ; then
+   PYXB_REDIRECT_=1  "$0" "$@" |& tee makedist.log
+   exit $?
+fi
 
 fail () {
   echo 1>&2 "${test_name} FAILED: ${@}"
@@ -36,8 +41,6 @@ BRANCH=${1:-next}
 # we should grab them from there instead of taxing the W3C's servers
 # with repeated requests
 export PYXB_SCHEMA_REPO=${PYXB_REAL_ROOT}
-
-exec | tee makedist.log 2>&1
 
 WORK_DIR=$(mktemp -d -t pyxbdist.XXXXXXX)
 stamp Cloning into ${WORK_DIR}
