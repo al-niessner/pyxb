@@ -555,7 +555,8 @@ class dateTime (_PyXBDateTime_base, datetime.datetime):
         else:
             raise TypeError('function takes at least 3 arguments (%d given)' % (len(args),))
 
-        cls._AdjustForTimezone(ctor_kw)
+        if kw.pop("_adjust_tz_", True):
+            cls._AdjustForTimezone(ctor_kw)
         kw.update(ctor_kw)
         year = kw.pop('year')
         month = kw.pop('month')
@@ -582,6 +583,15 @@ class dateTime (_PyXBDateTime_base, datetime.datetime):
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=self._UTCTimeZone)
         return dt.astimezone(self._LocalTimeZone)
+
+    def astimezone(self, tz):
+        dt = datetime.datetime(self.year, self.month, self.day,
+                               self.hour, self.minute, self.second,
+                               self.microsecond,
+                               self.tzinfo)
+        # preserve *tz* even if we usually do not preserve it
+        return self.__class__(dt.astimezone(tz), _adjust_tz_=False)
+
 
 _PrimitiveDatatypes.append(dateTime)
 
@@ -754,8 +764,10 @@ class date (_PyXBDateOnly_base):
         rtz = value.xsdRecoverableTzinfo()
         if rtz is not None:
             # If the date is timezoned, convert it to UTC
-            value -= value.tzinfo.utcoffset(value)
-            value = value.replace(tzinfo=cls._UTCTimeZone)
+            value = dateTime(value) # implicit convertion to UTC
+        # the computations below fail if *value* is really a ``date``
+        if isinstance(value, date):
+            value = dateTime(value)
         # Use the midpoint of the one-day interval to get the correct
         # month/day.
         value += datetime.timedelta(minutes=cls.__MinutesPerHalfDay)

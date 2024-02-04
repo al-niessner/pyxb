@@ -242,6 +242,9 @@ class NamedNodeMap (object):
     def item (self, index):
         return self.__members[index]
 
+    def __iter__(self):
+        return iter(self.item(i) for i in range(self.length))
+
     def _addItem (self, attr):
         assert pyxb.namespace.NamespaceContext.GetNodeContext(attr) is not None
         self.__members.append(attr)

@@ -20,13 +20,15 @@ from pyxb.exceptions_ import *
 import unittest
 
 from pyxb.utils import domutils
+from pyxb.utils.testutils import XmlTestCase
+
 def ToDOM (instance):
     return instance.toDOM().documentElement
 
 def assign (lhs, rhs):
     lhs = rhs
 
-class TestCTD (unittest.TestCase):
+class TestCTD (XmlTestCase):
 
 
     # Make sure that name collisions are deconflicted in favor of the

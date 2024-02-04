@@ -40,10 +40,11 @@ rv = compile(code, 'test', 'exec')
 eval(rv)
 
 from pyxb.exceptions_ import *
+from pyxb.utils.testutils import XmlTestCase
 
 import unittest
 
-class TestTrac_0057 (unittest.TestCase):
+class TestTrac_0057 (XmlTestCase):
     XMLs = '<ns1:ObsProject almatype="APDM::ObsProject" revision="1.74" schemaVersion="8" xmlns:ns1="URN:test-trac-0057"><ns1:timeOfCreation>2009-05-08 21:23:45</ns1:timeOfCreation></ns1:ObsProject>'
     XMLd = XMLs.encode('utf-8')
 

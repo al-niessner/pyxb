@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Make distribution for branch $1 or `next` and store it in RELEASES
 
 # Assumption is that the development git repository is in PYXB_ROOT or ".",
@@ -94,7 +94,7 @@ stamp Unpacking final distribution over repo area to show differences
 cd ${WORK_DIR}/pyxb
 rm -rf *
 tar x --strip-components=1 -zf ${PACKAGED_TGZ}
-git stat
+git status
 
 stamp Unpacking final distribution file
 cd ${WORK_DIR}
