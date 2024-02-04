@@ -13,6 +13,7 @@ if (sys.version_info[:2] < (3, 10)):
 (You have %s.)''' % (sys.version,))
 
 import os
+import os.path
 import stat
 import re
 import datetime
@@ -51,7 +52,8 @@ class update_version (Command):
             text = open('%s.in' % (f,)).read()
             for (k, v) in self.substitutions.items():
                 text = text.replace('@%s@' % (k,), v)
-            os.chmod(f, os.stat(f)[stat.ST_MODE] | stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH)
+            if os.path.exists(f):
+                os.chmod(f, os.stat(f)[stat.ST_MODE] | stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH)
             open(f,'w').write(text)
             os.chmod(f, os.stat(f)[stat.ST_MODE] & ~(stat.S_IWUSR | stat.S_IWGRP | stat.S_IWOTH))
 
