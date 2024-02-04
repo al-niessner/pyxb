@@ -4,7 +4,7 @@ from __future__ import print_function
 import sys
 
 # The current version of the system.  Format is #.#.#[-DEV].
-version = '1.3.0'
+version = '1.3.1'
 
 # Require Python 3.10 or higher
 if (sys.version_info[:2] < (3, 10)):

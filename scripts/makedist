@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+# Make distribution for branch $1 or `next` and store it in RELEASES
+
+# Assumption is that the development git repository is in PYXB_ROOT or ".",
+# and that there is a RELEASES subdirectory of this holding the
+# releases.
+
+fail () {
+  echo 1>&2 "${test_name} FAILED: ${@}"
+  exit 1
+}
+
+stamp () { 
+  echo "===>" $* "<===" `date`
+}
+
+set -e
+
+# Set this so if this script is redirected to a file, the output
+# will still be generated as utf-8 as it would be to a terminal.
+export PYTHONIOENCODING='utf-8'
+
+
+PYXB_REAL_ROOT=$(cd ${PYXB_ROOT:-.} && pwd)
+
+if [ ! -d ${PYXB_REAL_ROOT}/pyxb ]
+    then fail PYXB does not point to the development git repository
+fi
+if [ ! -d ${PYXB_REAL_ROOT}/RELEASES ]
+    then fail Missing RELEASES directory
+fi
+
+BRANCH=${1:-next}
+
+# Real root might have a cached copy of the schemas, in which case
+# we should grab them from there instead of taxing the W3C's servers
+# with repeated requests
+export PYXB_SCHEMA_REPO=${PYXB_REAL_ROOT}
+
+exec | tee makedist.log 2>&1
+
+WORK_DIR=$(mktemp -d -t pyxbdist.XXXXXXX)
+stamp Cloning into ${WORK_DIR}
+cd ${WORK_DIR}
+git clone -b ${BRANCH} ${PYXB_REAL_ROOT} pyxb
+cd pyxb
+
+export PYXB_ROOT=${WORK_DIR}/pyxb
+export PYTHONPATH=${PYXB_ROOT}
+
+# Update the version numbers in the source
+version=$(grep ^version setup.py | cut -d= -f2 | sed -e "s@'@@g")
+
+stamp Updating version information to ${version}
+./setup.py update_version
+git status || fail Unsaved deltas present
+
+stamp Packaging basic source distribution
+./setup.py sdist
+ver=`ls -rt dist | tail -1 | sed -e 's@^PyXB-\(.*\).tar.gz$@\1@'`
+DISTROOT=PyXB-${ver}
+EXPORTED_TGZ=${WORK_DIR}/pyxb/dist/${DISTROOT}.tar.gz
+cd ${WORK_DIR}
+
+stamp Unpacking source distribution into ${DISTROOT}
+rm -rf ${DISTROOT}
+tar xzf ${EXPORTED_TGZ}
+cd ${DISTROOT} || fail Unable to enter unpacked basic distribution
+
+export PYXB_ROOT=${WORK_DIR}/${DISTROOT}
+export PYTHONPATH=${PYXB_ROOT}
+
+# Build the documentation
+stamp Building documentation
+cd doc
+rm -rf html
+make html || fail Unable to build documentation
+cd ..
+
+# Generate the bundles
+stamp Generating bundles
+maintainer/genbundles
+
+# Rebuild the derived files and save the packaged file
+stamp Re-packaging sources with generated files included
+./setup.py sdist
+PACKAGED_TGZ=${WORK_DIR}/${DISTROOT}.tar.gz
+cp -p dist/${DISTROOT}.tar.gz ${PACKAGED_TGZ}
+cd ..
+
+# Check out the original, remove all the files, unpack the
+# distribution over it, and display the differences:
+stamp Unpacking final distribution over repo area to show differences
+cd ${WORK_DIR}/pyxb
+rm -rf *
+tar x --strip-components=1 -zf ${PACKAGED_TGZ}
+git stat
+
+stamp Unpacking final distribution file
+cd ${WORK_DIR}
+rm -rf ${DISTROOT}-old
+mv ${DISTROOT} ${DISTROOT}-old
+tar xzf ${PACKAGED_TGZ}
+#PACKAGED_ZIP=${WORK_DIR}/${DISTROOT}.zip
+#zip -r ${PACKAGED_ZIP} ${DISTROOT}
+cd ${DISTROOT} || fail Unable to cd into unpacked distribution
+
+# Test it
+stamp Testing final distribution file
+PATH=${PYXB_ROOT}/scripts:${PATH} ./setup.py test || fail Packaged distribution failed tests
+
+# And, if it passed, save it
+cp -pf ${PACKAGED_TGZ} ${PACKAGED_ZIP} ${PYXB_REAL_ROOT}/RELEASES/
