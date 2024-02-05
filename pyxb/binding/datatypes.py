@@ -461,7 +461,7 @@ class _PyXBDateTime_base (basis.simpleTypeDefinition, basis._RepresentAsXsdLiter
         return (self.__class__, (self.xsdLiteral(),))
 
     @classmethod
-    def _AdjustForTimezone (cls, kw):
+    def _AdjustForTimezone (cls, kw, adjust=None):
         """Update datetime keywords to account for timezone effects.
 
         All XML schema timezoned times are in UTC, with the time "in
@@ -474,8 +474,12 @@ class _PyXBDateTime_base (basis.simpleTypeDefinition, basis._RepresentAsXsdLiter
 
         @param kw: A dictionary of keywords relevant for a date or
         time instance.  The dictionary is updated by this call.
+
+        @param adjust: indicates whether timezone ajustments should
+        be performed. Values: ``None`` - obey ``pyxb.PreserveInputTimeZone``;
+        true - perform adjustment; false - preserve timezone
         """
-        if pyxb.PreserveInputTimeZone():
+        if pyxb.PreserveInputTimeZone() if adjust is None else not adjust:
             return
         tzoffs = kw.pop('tzinfo', None)
         if tzoffs is not None:
@@ -525,6 +529,10 @@ class dateTime (_PyXBDateTime_base, datetime.datetime):
     __CtorFields = ( 'year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond', 'tzinfo' )
 
     def __new__ (cls, *args, **kw):
+        """@param _adjust_tz_: indicates whether timezone ajustments should
+        be performed. Values: ``None`` - obey ``pyxb.PreserveInputTimeZone``;
+        true - perform adjustment; false - preserve timezone
+        """
         args = cls._ConvertArguments(args, kw)
 
         ctor_kw = { }
@@ -555,8 +563,7 @@ class dateTime (_PyXBDateTime_base, datetime.datetime):
         else:
             raise TypeError('function takes at least 3 arguments (%d given)' % (len(args),))
 
-        if kw.pop("_adjust_tz_", True):
-            cls._AdjustForTimezone(ctor_kw)
+        cls._AdjustForTimezone(ctor_kw, kw.pop("_adjust_tz_", None))
         kw.update(ctor_kw)
         year = kw.pop('year')
         month = kw.pop('month')
@@ -616,6 +623,10 @@ class time (_PyXBDateTime_base, datetime.time):
     __CtorFields = ( 'hour', 'minute', 'second', 'microsecond', 'tzinfo' )
 
     def __new__ (cls, *args, **kw):
+        """@param _adjust_tz_: indicates whether timezone ajustments should
+        be performed. Values: ``None`` - obey ``pyxb.PreserveInputTimeZone``;
+        true - perform adjustment; false - preserve timezone
+        """
         args = cls._ConvertArguments(args, kw)
         ctor_kw = { }
         if kw.get('_nil'):
@@ -640,7 +651,7 @@ class time (_PyXBDateTime_base, datetime.time):
             else:
                 raise SimpleTypeValueError(cls, value)
 
-        cls._AdjustForTimezone(ctor_kw)
+        cls._AdjustForTimezone(ctor_kw, kw.pop("_adjust_tz_", None))
         kw.update(ctor_kw)
         return super(time, cls).__new__(cls, **kw)
 
@@ -764,7 +775,7 @@ class date (_PyXBDateOnly_base):
         rtz = value.xsdRecoverableTzinfo()
         if rtz is not None:
             # If the date is timezoned, convert it to UTC
-            value = dateTime(value) # implicit convertion to UTC
+            value = dateTime(value, _adjust_tz_=True) # implicit convertion to UTC
         # the computations below fail if *value* is really a ``date``
         if isinstance(value, date):
             value = dateTime(value)
