@@ -25,10 +25,11 @@ rv = compile(code, 'test', 'exec')
 eval(rv)
 
 from pyxb.exceptions_ import *
+from pyxb.utils.testutils import XmlTestCase
 
 import unittest
 
-class TestTrac_0058 (unittest.TestCase):
+class TestTrac_0058 (XmlTestCase):
     def testRoundTrip (self):
         xmlt = six.u('<iopt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"></iopt>')
         xmld = xmlt.encode('utf-8')

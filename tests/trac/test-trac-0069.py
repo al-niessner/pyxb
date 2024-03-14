@@ -57,6 +57,7 @@ rv = compile(code, 'test', 'exec')
 eval(rv)
 
 from pyxb.exceptions_ import *
+from pyxb.utils.testutils import XmlTestCase
 
 import unittest
 import collections
@@ -72,7 +73,7 @@ value_type = value_element.typeDefinition()
 
 v_bind = pyxb.BIND('foo', lang='ENG')
 
-class TestTrac_0069 (unittest.TestCase):
+class TestTrac_0069 (XmlTestCase):
     def testMetaConstructor (self):
         newdoc = MetadataDocument()
         newdoc.template = 'anewtemplate'

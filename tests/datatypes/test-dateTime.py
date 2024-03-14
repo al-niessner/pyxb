@@ -84,6 +84,22 @@ class Test_dateTime (unittest.TestCase):
         print(str(dt))
         print(dt.aslocal())
 
+    def testTimezoneAjustment(self):
+        preserve = pyxb.PreserveInputTimeZone()
+        try:
+            pyxb.PreserveInputTimeZone(False)
+            dt = xsd.dateTime('2000-03-04T23:00:00+03:00')
+            self.assertEqual('2000-03-04T20:00:00Z', dt.xsdLiteral())
+            dt = xsd.dateTime('2000-03-04T23:00:00+03:00', _adjust_tz_=False)
+            self.assertEqual('2000-03-04T23:00:00+03:00', dt.xsdLiteral())
+            pyxb.PreserveInputTimeZone(True)
+            dt = xsd.dateTime('2000-03-04T23:00:00+03:00')
+            self.assertEqual('2000-03-04T23:00:00+03:00', dt.xsdLiteral())
+            dt = xsd.dateTime('2000-03-04T23:00:00+03:00', _adjust_tz_=True)
+            self.assertEqual('2000-03-04T20:00:00Z', dt.xsdLiteral())
+        finally:
+            pyxb.PreserveInputTimeZone(preserve)
+
 
 if __name__ == '__main__':
     unittest.main()

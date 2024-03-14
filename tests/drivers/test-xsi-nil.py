@@ -20,6 +20,7 @@ rv = compile(code, 'test', 'exec')
 eval(rv)
 
 from pyxb.exceptions_ import *
+from pyxb.utils.testutils import XmlTestCase
 
 import unittest
 
@@ -27,7 +28,7 @@ def setFull (instance, value):
     instance.full = value
     return instance
 
-class TestXSIType (unittest.TestCase):
+class TestXSIType (XmlTestCase):
 
     def testFull (self):
         xmlt = six.u('<full xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">content</full>')

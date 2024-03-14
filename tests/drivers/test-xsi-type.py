@@ -23,10 +23,11 @@ def oneFloorCtor (*args, **kw):
 originalOneFloor._SetAlternativeConstructor(oneFloorCtor)
 
 from pyxb.exceptions_ import *
+from pyxb.utils.testutils import XmlTestCase
 
 import unittest
 
-class TestXSIType (unittest.TestCase):
+class TestXSIType (XmlTestCase):
     def testFailsNoType (self):
         xmlt = six.u('<elt/>')
         doc = pyxb.utils.domutils.StringToDOM(xmlt)

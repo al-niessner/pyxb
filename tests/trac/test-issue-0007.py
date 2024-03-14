@@ -29,10 +29,11 @@ rv = compile(code, 'test', 'exec')
 eval(rv)
 
 from pyxb.exceptions_ import *
+from pyxb.utils.testutils import XmlTestCase
 
 import unittest
 
-class TestIssue0007 (unittest.TestCase):
+class TestIssue0007 (XmlTestCase):
     def testConstruction (self):
         # Absence of attribute uses implicit default
         i = number(53)
