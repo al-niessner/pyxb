@@ -11,7 +11,11 @@ EOF
 echo "tempdir: ${wdir}"
 echo "version: ${version}"
 cd $wdir
-tar  --strip-components=1 -xzf $bdir/RELEASES/PyXB-CTC-${version}.tar.gz
+# No, this gets the release from github so that what is in this branch is not
+# what is pushed to pypi. In essence, multiple runs of this script with same
+# version produces same results.
+wget https://github.com/al-niessner/pyxb/archive/${version}.tar.gz
+tar  --strip-components=1 -xzf ${version}.tar.gz
 python3 setup.py sdist
 twine check dist/*
 twine upload --verbose dist/*
