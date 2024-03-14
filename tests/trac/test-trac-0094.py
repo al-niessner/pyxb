@@ -32,6 +32,7 @@ rv = compile(code, 'test', 'exec')
 eval(rv)
 
 from pyxb.exceptions_ import *
+from pyxb.utils.testutils import XmlTestCase
 
 import unittest
 
@@ -39,7 +40,7 @@ import pyxb.utils.domutils
 import pyxb.namespace
 pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(pyxb.namespace.XMLSchema, 'xs')
 
-class TestTrac_0094 (unittest.TestCase):
+class TestTrac_0094 (XmlTestCase):
     body = 'something'
     xmlt = six.u('''<anything xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="xs:string">%s</anything>''') % (body,)
     xmld = xmlt.encode('utf-8')

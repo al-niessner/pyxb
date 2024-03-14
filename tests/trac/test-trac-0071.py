@@ -57,6 +57,7 @@ rv = compile(code, 'test', 'exec')
 eval(rv)
 
 from pyxb.exceptions_ import *
+from pyxb.utils.testutils import XmlTestCase
 
 import unittest
 import collections
@@ -72,7 +73,7 @@ value_type = value_element.typeDefinition()
 
 v_bind = pyxb.BIND('foo', lang='ENG')
 
-class TestTrac_0071 (unittest.TestCase):
+class TestTrac_0071 (XmlTestCase):
     def testFieldConstructor (self):
         field = field_type('title', pyxb.BIND('foo', lang='ENG'), _element=field_element)
         self.assertTrue(isinstance(field.value_, collections.abc.MutableSequence))

@@ -11,9 +11,8 @@ EOF
 echo "tempdir: ${wdir}"
 echo "version: ${version}"
 cd $wdir
-wget https://github.com/al-niessner/pyxb/archive/${version}.tar.gz
-tar  --strip-components=1 -xzf ${version}.tar.gz
-python3 setup.py sdist bdist_wheel
+tar  --strip-components=1 -xzf $bdir/RELEASES/PyXB-CTC-${version}.tar.gz
+python3 setup.py sdist
 twine check dist/*
 twine upload --verbose dist/*
 cd ${bdir}

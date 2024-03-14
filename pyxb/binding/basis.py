@@ -17,7 +17,7 @@
 inherit, and that describe the content models of those schema."""
 
 import logging
-import collections
+import collections.abc
 import xml.dom
 import pyxb
 from pyxb.utils import domutils, utility, six
