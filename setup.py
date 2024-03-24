@@ -4,7 +4,7 @@ from __future__ import print_function
 import sys
 
 # The current version of the system.  Format is #.#.#[-DEV].
-version = '1.3.1'
+version = '1.3.2-rc2'
 
 # Require Python 3.10 or higher
 if (sys.version_info[:2] < (3, 10)):
@@ -24,6 +24,10 @@ from setuptools import setup, Command
 # Stupid little command to automatically update the version number
 # where it needs to be updated.
 class update_version (Command):
+    def __init__(self, *args, **kwds):
+        if (args and not args == (None,)) or kwds:
+            Command.__init__(self, *args, **kwds)
+
     # Brief (40-50 characters) description of the command
     description = "Substitute @VERSION@ in relevant files"
 
