@@ -19,6 +19,7 @@ import re
 import os
 import errno
 import pyxb
+import pyxb.utils.six
 from pyxb.utils.six.moves.urllib import parse as urlparse
 import time
 import datetime
