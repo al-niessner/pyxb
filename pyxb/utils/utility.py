@@ -974,7 +974,7 @@ class UTCOffsetTimeZone (datetime.tzinfo):
     """
 
     # Regular expression that matches valid ISO8601 time zone suffixes
-    __Lexical_re = re.compile('^([-+])(\d\d):(\d\d)$')
+    __Lexical_re = re.compile(r'^([-+])(\d\d):(\d\d)$')
 
     # The offset in minutes east of UTC.
     __utcOffset_min = 0
