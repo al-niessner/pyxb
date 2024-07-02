@@ -1154,7 +1154,7 @@ def GetMatchingFiles (path, pattern=None, default_path_wildcard=None, default_pa
     within the archive path specified by the user.  One could use::
 
       files = GetMatchingFiles('&bundles//:+',
-                               pattern=re.compile('.*\.wxs$'),
+                               pattern=re.compile('.*\\.wxs$'),
                                default_path_wildcard='+',
                                default_path='/usr/local/pyxb/nsarchives',
                                prefix_pattern='&',
