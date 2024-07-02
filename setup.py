@@ -83,7 +83,7 @@ class test (Command):
         pass
 
     # Regular expression that matches unittest sources
-    __TestFile_re = re.compile('^test.*\.py$')
+    __TestFile_re = re.compile(r'^test.*\.py$')
 
     def run (self):
         # Make sure log messages are supported
@@ -183,8 +183,8 @@ if __name__ == '__main__':
             ]
     package_data = {}
 
-    init_re = re.compile('^__init__\.py$')
-    wxs_re = re.compile('^.*\.wxs$')
+    init_re = re.compile(r'^__init__\.py$')
+    wxs_re = re.compile(r'^.*\.wxs$')
 
     setup_path = os.path.dirname(__file__)
     bundle_base = os.path.join(setup_path, 'pyxb', 'bundles')

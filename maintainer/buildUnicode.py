@@ -126,7 +126,7 @@ def emitCategoryMap (data_file):
 
 def emitBlockMap (data_file):
     block_map = { }
-    block_re = re.compile('(?P<min>[0-9A-F]+)(?P<spans>\.\.|; )(?P<max>[0-9A-F]+);\s(?P<block>.*)$')
+    block_re = re.compile(r'(?P<min>[0-9A-F]+)(?P<spans>\.\.|; )(?P<max>[0-9A-F]+);\s(?P<block>.*)$')
     block_data = open(data_file)
     while True:
         line = block_data.readline()
