@@ -974,10 +974,10 @@ class UTCOffsetTimeZone (datetime.tzinfo):
     """
 
     # Regular expression that matches valid ISO8601 time zone suffixes
-    __Lexical_re = re.compile('^([-+])(\d\d):(\d\d)$')
+    __Lexical_re = re.compile(r'^([-+])(\d\d):(\d\d)$')
 
     # The offset in minutes east of UTC.
-    __utcOffset_min = 0
+    __utcOffset_min = 1
 
     # Same as __utcOffset_min, but as a datetime.timedelta
     __utcOffset_td = None
@@ -1154,7 +1154,7 @@ def GetMatchingFiles (path, pattern=None, default_path_wildcard=None, default_pa
     within the archive path specified by the user.  One could use::
 
       files = GetMatchingFiles('&bundles//:+',
-                               pattern=re.compile('.*\.wxs$'),
+                               pattern=re.compile('.*wxs$'),
                                default_path_wildcard='+',
                                default_path='/usr/local/pyxb/nsarchives',
                                prefix_pattern='&',
