@@ -27,7 +27,8 @@ import errno
 
 import pyxb
 import pyxb.xmlschema as xs
-from pyxb.utils import utility, templates, six
+from pyxb.utils import utility, templates
+from pyxb.utils import sal as six
 from pyxb.utils.utility import repr2to3
 from pyxb.binding import basis, datatypes, facets
 
@@ -1671,7 +1672,7 @@ import io
 import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
-import pyxb.utils.six as _six
+import pyxb.utils.sal as _six
 ''')
         self.bindingIO().appendPrologBoilerplate(template_map)
         self.bindingIO().prolog().append(self.bindingIO().expand('''
@@ -1794,7 +1795,7 @@ from __future__ import unicode_literals
 import pyxb
 import pyxb.binding
 import pyxb.utils.utility
-import pyxb.utils.six as _six
+import pyxb.utils.sal as _six
 ''')
         self.bindingIO().appendPrologBoilerplate(template_map)
 

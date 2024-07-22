@@ -23,8 +23,8 @@ import pyxb.namespace
 import pyxb.namespace.resolution
 import pyxb.utils.saxutils
 import pyxb.utils.saxdom
-from pyxb.utils import six
-from pyxb.utils.six.moves import xrange
+from pyxb.utils import sal as six
+from pyxb.utils.sal import xrange
 
 _log = logging.getLogger(__name__)
 

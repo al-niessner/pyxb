@@ -19,11 +19,11 @@ import re
 import os
 import errno
 import pyxb
-from pyxb.utils.six.moves.urllib import parse as urlparse
+from pyxb.utils.sal import urlparse
 import time
 import datetime
 import logging
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 _log = logging.getLogger(__name__)
 
@@ -735,7 +735,7 @@ def DataFromURI (uri, archive_directory=None):
     If the uri does not include a scheme (e.g., C{http:}), it is
     assumed to be a file path on the local system."""
 
-    from pyxb.utils.six.moves.urllib.request import urlopen
+    from pyxb.utils.sal import urlopen
     stream = None
     exc = None
     # Only something that has a colon is a non-file URI.  Some things
@@ -768,7 +768,7 @@ def DataFromURI (uri, archive_directory=None):
     try:
         # Protect this in case whatever stream is doesn't have an fp
         # attribute.
-        if isinstance(stream, six.moves.file) or isinstance(stream.fp, six.moves.file):
+        if isinstance(stream, six.file) or isinstance(stream.fp, six.file):
             archive_directory = None
     except:
         pass
@@ -1227,7 +1227,7 @@ class Location (object):
 
     def __init__ (self, location_base=None, line_number=None, column_number=None):
         if isinstance(location_base, str):
-            location_base = six.moves.intern(location_base)
+            location_base = six.intern(location_base)
         self.__locationBase = location_base
         self.__lineNumber = line_number
         self.__columnNumber = column_number

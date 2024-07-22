@@ -6,7 +6,7 @@ _log = logging.getLogger(__name__)
 from pyxb.exceptions_ import *
 import unittest
 import pyxb.binding.datatypes as xsd
-from pyxb.utils import six
+from pyxb.utils import sal as six
 import binascii
 
 class Test_hexBinary (unittest.TestCase):

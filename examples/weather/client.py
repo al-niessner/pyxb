@@ -1,7 +1,7 @@
 from __future__ import print_function
 import sys
 import time
-from pyxb.utils.six.moves.urllib import request as urllib_request
+from pyxb.utils.sal import urllib_request
 import pyxb.bundles.wssplat.soap11 as soapenv
 import weather
 

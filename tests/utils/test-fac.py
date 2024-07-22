@@ -1,8 +1,8 @@
 import unittest
 import sys
 from pyxb.utils.fac import *
-from pyxb.utils import six
-from pyxb.utils.six.moves import xrange
+from pyxb.utils import sal as six
+from pyxb.utils.sal import xrange
 
 class TestFAC (unittest.TestCase):
     a = Symbol('a')

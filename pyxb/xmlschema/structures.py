@@ -36,7 +36,7 @@ import re
 import logging
 from xml.dom import Node
 import copy
-from pyxb.utils.six.moves.urllib import parse as urlparse
+from pyxb.utils.sal import urlparse
 import os.path
 
 import pyxb
@@ -45,7 +45,8 @@ import pyxb.namespace.archive
 import pyxb.namespace.resolution
 
 from pyxb.binding import basis, datatypes, facets
-from pyxb.utils import domutils, six
+from pyxb.utils import domutils
+from pyxb.utils import sal as six
 import pyxb.utils.utility
 
 _log = logging.getLogger(__name__)

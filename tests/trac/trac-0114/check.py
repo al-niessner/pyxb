@@ -4,7 +4,7 @@ import logging
 if __name__ == '__main__':
     logging.basicConfig()
 _log = logging.getLogger(__name__)
-from pyxb.utils import six
+from pyxb.utils import sal as six
 import noi
 import unittest
 import pyxb

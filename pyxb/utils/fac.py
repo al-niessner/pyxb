@@ -60,8 +60,8 @@ retained between matches.
 import operator
 import functools
 import logging
-from pyxb.utils import six
-from pyxb.utils.six.moves import xrange
+from pyxb.utils import sal as six
+from pyxb.utils.sal import xrange
 
 log_ = logging.getLogger(__name__)
 

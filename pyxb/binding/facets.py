@@ -29,7 +29,7 @@ import decimal
 import pyxb
 from . import datatypes
 from . import basis
-from pyxb.utils import utility, six
+from pyxb.utils import utility, sal as six
 
 _log = logging.getLogger(__name__)
 

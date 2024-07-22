@@ -52,7 +52,7 @@ import decimal as python_decimal
 from pyxb.exceptions_ import *
 import pyxb.namespace
 import pyxb.utils.unicode
-from pyxb.utils import six
+from pyxb.utils import sal as six
 from . import basis
 
 _log = logging.getLogger(__name__)

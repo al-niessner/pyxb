@@ -21,7 +21,7 @@ import os
 import os.path
 import pyxb
 import pyxb.utils.utility
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 _log = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ def GetArchivePath ():
     return os.environ.get(PathEnvironmentVariable)
 
 # Stuff required for pickling
-from pyxb.utils.six.moves import cPickle as pickle
+from pyxb.utils.sal import cPickle as pickle
 import re
 
 class NamespaceArchive (object):

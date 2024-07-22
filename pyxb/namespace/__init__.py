@@ -22,7 +22,7 @@ components.
 
 import pyxb
 import pyxb.utils.utility
-from pyxb.utils import six
+from pyxb.utils import sal as six
 import xml.dom
 import logging
 

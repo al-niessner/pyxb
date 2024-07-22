@@ -20,7 +20,7 @@ import logging
 import collections.abc
 import xml.dom
 import pyxb
-from pyxb.utils import domutils, utility, six
+from pyxb.utils import domutils, utility, sal as six
 import pyxb.namespace
 from pyxb.namespace.builtin import XMLSchema_instance as XSI
 import decimal

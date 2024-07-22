@@ -2,7 +2,7 @@ from __future__ import print_function
 import xml.dom
 import xml.dom.minidom
 import pyxb.utils.domutils
-from pyxb.utils import six
+from pyxb.utils import sal as six
 import pyxb.namespace
 
 # Structure

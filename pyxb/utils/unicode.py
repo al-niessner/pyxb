@@ -35,8 +35,8 @@ and refers to U{Unicode Standard Annex #27: Unicode 3.1
 import re
 import logging
 import pyxb.utils.utility
-from pyxb.utils import six
-from pyxb.utils.six.moves import xrange
+from pyxb.utils import sal as six
+from pyxb.utils.sal import xrange
 
 _log = logging.getLogger(__name__)
 

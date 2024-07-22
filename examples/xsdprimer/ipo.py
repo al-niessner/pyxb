@@ -1,6 +1,6 @@
 # Bring everything in
 from raw.ipo import *
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 # Provide a way to reference the raw bindings that we're going to override
 import raw.ipo as raw_ipo

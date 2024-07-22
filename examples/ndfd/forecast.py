@@ -3,7 +3,7 @@ import xml.dom.minidom
 import DWML
 import datetime
 import pyxb.binding.datatypes as xsd
-from pyxb.utils.six.moves.urllib.request import urlopen
+from pyxb.utils.sal import urlopen
 import time
 import collections
 import sys
