@@ -63,6 +63,7 @@ if PY3:
     from builtins import exec as exec_
     from builtins import range as xrange
     from sys import intern
+    from types import ModuleType as imp_new_module
     from urllib import parse as urlparse
     from urllib import request as urllib_request
     from urllib.request import urlopen
