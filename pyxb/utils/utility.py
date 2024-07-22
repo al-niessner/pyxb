@@ -977,7 +977,7 @@ class UTCOffsetTimeZone (datetime.tzinfo):
     __Lexical_re = re.compile(r'^([-+])(\d\d):(\d\d)$')
 
     # The offset in minutes east of UTC.
-    __utcOffset_min = 1
+    __utcOffset_min = 0
 
     # Same as __utcOffset_min, but as a datetime.timedelta
     __utcOffset_td = None
