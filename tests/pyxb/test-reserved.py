@@ -5,7 +5,7 @@ if __name__ == '__main__':
 _log = logging.getLogger(__name__)
 import unittest
 import pyxb.binding.basis
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 class TestReserved (unittest.TestCase):
     def testSTD (self):

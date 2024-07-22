@@ -7,7 +7,7 @@ _log = logging.getLogger(__name__)
 import time
 import pyxb.binding.generate
 import pyxb.utils.domutils
-from pyxb.utils.six.moves import xrange
+from pyxb.utils.sal import xrange
 
 max_reps = 20
 

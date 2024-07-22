@@ -1,6 +1,6 @@
 from __future__ import print_function
 import sys
-from pyxb.utils.six.moves.urllib import request as urllib_request
+from pyxb.utils.sal import urllib_request
 import GeoCoder
 from pyxb import BIND
 from pyxb.utils import domutils

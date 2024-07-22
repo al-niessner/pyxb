@@ -5,11 +5,11 @@ if __name__ == '__main__':
 _log = logging.getLogger(__name__)
 import pyxb.binding.generate
 import pyxb.utils.domutils
-from pyxb.utils import six
+from pyxb.utils import sal as six
 from xml.dom import Node
 import pyxb.namespace
 import sys
-import imp
+from pyxb.utils.sal import imp_new_module
 
 import os.path
 
@@ -20,7 +20,7 @@ te_generator.addSchemaLocation('test-external.xsd')
 # Create a module into which we'll stick the shared types bindings.
 # Put it into the sys modules so the import directive in subsequent
 # code is resolved.
-st = imp.new_module('st')
+st = imp_new_module('st')
 sys.modules['st'] = st
 
 # Now get the code for the shared types bindings, and evaluate it

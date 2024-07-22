@@ -29,7 +29,7 @@ import pyxb
 import pyxb.binding
 import pyxb.utils.utility
 import pyxb.utils.domutils
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 # Unique identifier for bindings created at the same time
 _GenerationUID = pyxb.namespace.builtin.BuiltInObjectUID

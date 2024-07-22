@@ -17,7 +17,7 @@ from pyxb.bundles.wssplat.raw.wsdl11 import *
 import pyxb.bundles.wssplat.raw.wsdl11 as raw_wsdl11
 
 import pyxb.namespace
-from pyxb.utils import domutils, six
+from pyxb.utils import domutils, sal as six
 import xml.dom
 
 def ImportRelatedNamespaces ():

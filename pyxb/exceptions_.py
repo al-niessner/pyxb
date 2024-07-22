@@ -21,7 +21,7 @@ reference it below.
 """
 
 import pyxb
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 class PyXBException (Exception):
     """Base class for exceptions that indicate a problem that the user should fix."""

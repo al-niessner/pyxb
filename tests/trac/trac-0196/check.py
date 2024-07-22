@@ -12,7 +12,7 @@ import uq0196 as uq
 import uu0196 as uu
 import mix
 from pyxb.utils.domutils import BindingDOMSupport
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 BindingDOMSupport.DeclareNamespace(qq.Namespace, 'qq')
 BindingDOMSupport.DeclareNamespace(qu.Namespace, 'qu')

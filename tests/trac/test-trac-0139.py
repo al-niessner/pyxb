@@ -11,7 +11,7 @@ import pyxb.binding.generate
 import pyxb.binding.datatypes as xs
 import pyxb.binding.basis
 import pyxb.utils.saxutils
-from pyxb.utils import six
+from pyxb.utils import sal as six
 import tempfile
 import xml.sax
 

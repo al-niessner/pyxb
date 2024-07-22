@@ -3,7 +3,7 @@
 from __future__ import print_function
 import sys
 import dict
-from pyxb.utils.six.moves.urllib.request import urlopen
+from pyxb.utils.sal import urlopen
 import pyxb.utils.domutils as domutils
 from xml.dom import minidom
 

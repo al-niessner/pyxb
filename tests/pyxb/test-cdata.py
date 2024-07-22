@@ -7,7 +7,7 @@ import pyxb.binding.generate
 import pyxb.binding.datatypes as xs
 import pyxb.binding.basis
 import pyxb.utils.domutils
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 import os.path
 xsd='''<?xml version="1.0" encoding="UTF-8"?>

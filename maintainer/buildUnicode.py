@@ -29,8 +29,8 @@ C{pyxb/utils/unicode_data.py}.
 from __future__ import print_function
 import textwrap
 import re
-from pyxb.utils import six
-from pyxb.utils.six.moves import xrange
+from pyxb.utils import sal as six
+from pyxb.utils.sal import xrange
 
 def countCodepoints (codepoints):
     count = 0

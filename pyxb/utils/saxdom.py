@@ -31,7 +31,7 @@ import logging
 import io
 import xml.dom
 import pyxb.utils.saxutils
-from pyxb.utils import six
+from pyxb.utils import sal as six
 import pyxb.namespace
 
 _log = logging.getLogger(__name__)

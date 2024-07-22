@@ -37,7 +37,7 @@ http://www.xmlschemareference.com/examples/Ch14/regexpDemo.xml}"""
 import re
 import logging
 import pyxb.utils.unicode
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 _log = logging.getLogger(__name__)
 

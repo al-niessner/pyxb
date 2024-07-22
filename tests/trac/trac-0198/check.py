@@ -9,7 +9,7 @@ import wsse
 import wsu
 
 from pyxb.utils.domutils import BindingDOMSupport
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 BindingDOMSupport.DeclareNamespace(wsu.Namespace, 'wsu')
 BindingDOMSupport.DeclareNamespace(wsse.Namespace, 'wsse')

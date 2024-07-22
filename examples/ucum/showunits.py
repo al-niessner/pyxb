@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import ucum
 import pyxb
 import sys
-from pyxb.utils import six
+from pyxb.utils import sal as six
 
 def ucumHTML (u):
     """Convert mixed content to UCUM's version of HTML"""

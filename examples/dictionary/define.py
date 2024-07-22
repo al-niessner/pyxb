@@ -1,6 +1,6 @@
 from __future__ import print_function
 import dict
-from pyxb.utils.six.moves.urllib.request import urlopen
+from pyxb.utils.sal import urlopen
 import sys
 from pyxb.utils import domutils
 

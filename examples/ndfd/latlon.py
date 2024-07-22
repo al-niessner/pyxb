@@ -4,8 +4,8 @@ import sys
 import DWML
 import datetime
 import pyxb
-from pyxb.utils import domutils, six
-from pyxb.utils.six.moves.urllib import request as urllib_request
+from pyxb.utils import domutils, sal as six
+from pyxb.utils.sal import urllib_request
 import pyxb.binding.datatypes as xsd
 import pyxb.bundles.wssplat.soap11 as soapenv
 
